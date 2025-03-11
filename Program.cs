@@ -2,7 +2,7 @@
 
 internal static class Program
 {
-    private static string[] _starterBooks =
+    private static readonly string[] StarterBooks =
     [
         "The Great Gatsby", "To Kill a Mockingbird", "1984", "Pride and Prejudice", "The Catcher in the Rye",
         "The Hobbit", "Moby-Dick", "War and Peace", "The Odyssey", "The Lord of the Rings", "Jane Eyre", "Animal Farm",
@@ -12,17 +12,29 @@ internal static class Program
 
     private static void Main(string[] args)
     {
-        var option = Menu.GetMenuOption();
         var library = new Library
         {
             Books =
             [
-                .._starterBooks.Select(title => new Book
+                ..StarterBooks.Select(title => new Book
                 {
                     Title = title,
                 })
             ]
         };
-        Console.WriteLine(option);
+
+        while (true)
+        {
+            Console.Clear();
+            var option = Menu.GetMenuOption();
+
+            switch (option)
+            {
+                case "View Books":
+                case "Add book":
+                case "Delete book":
+                    break;
+            }
+        }
     }
 }
