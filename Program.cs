@@ -1,4 +1,6 @@
-﻿namespace LibraryManagement;
+﻿using Spectre.Console;
+
+namespace LibraryManagement;
 
 internal static class Program
 {
@@ -31,6 +33,12 @@ internal static class Program
             switch (option)
             {
                 case "View Books":
+                    AnsiConsole.MarkupLine("[yellow]List of books:[/]");
+                    foreach (var book in library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title}[/]");
+
+                    AnsiConsole.MarkupLine("Press any key to continue...");
+                    Console.ReadKey();
+                    break;
                 case "Add book":
                 case "Delete book":
                     break;
