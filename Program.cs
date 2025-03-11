@@ -1,3 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace LibraryManagement;
 
-Console.WriteLine("Hello, World!");
+internal static class Program
+{
+    private static void Main(string[] args)
+    {
+        var option = Menu.GetMenuOption();
+        Console.WriteLine(option);
+    }
+}
