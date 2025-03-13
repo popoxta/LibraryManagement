@@ -4,13 +4,16 @@ namespace LibraryManagement;
 
 public static class Menu
 {
-    private static readonly string[] MenuOptions = ["View Books", "Add book", "Delete book"];
-
-    public static string GetMenuOption()
+    public enum MenuOption
     {
-        return AnsiConsole
-            .Prompt(new SelectionPrompt<string>()
-                .Title("Select an option")
-                .AddChoices(MenuOptions));
+        ViewBooks,
+        AddBook,
+        DeleteBook,
     }
+
+    public static MenuOption GetMenuOption() =>
+        AnsiConsole
+            .Prompt(new SelectionPrompt<MenuOption>()
+                .Title("Select an option")
+                .AddChoices(Enum.GetValues<MenuOption>()));
 }
