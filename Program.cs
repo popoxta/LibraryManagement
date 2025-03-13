@@ -12,19 +12,59 @@ internal static class Program
         "Wuthering Heights", "Fahrenheit 451", "Catch-22", "The Hitchhiker's Guide to the Galaxy"
     ];
 
+    private static readonly Library Library = new Library
+    {
+        Books =
+        [
+            ..StarterBooks.Select(title => new Book
+            {
+                Title = title,
+            })
+        ]
+    };
+
+    private static void ViewBooks()
+    {
+        AnsiConsole.MarkupLine("[yellow]List of books:[/]");
+        foreach (var book in Library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title}[/]");
+    }
+
+    private static void AddBook()
+    {
+        var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book:");
+        var wasBookAdded = Library.AddBook(new Book { Title = title });
+        AnsiConsole.MarkupLine(wasBookAdded
+            ? "[green]Book added successfully![/]"
+            : "[red]Book already exists![/]");
+    }
+
+    private static void DeleteBook()
+    {
+        if (Library.Books.Count == 0)
+        {
+            AnsiConsole.MarkupLine("[red]There are no books in the library.[/]");
+            return;
+        }
+
+        var bookToDelete =
+            AnsiConsole.Prompt(new SelectionPrompt<string>()
+                .Title("Select a [red]book[/] to delete:")
+                .AddChoices(Library.GetAllBookTitles())
+            );
+        var wasBookRemoved = Library.RemoveBook(bookToDelete);
+        AnsiConsole.MarkupLine(wasBookRemoved
+            ? "[green]Book removed successfully![/]"
+            : "[red]Book not found![/]");
+    }
+
+    private static void PressKeyToContinue()
+    {
+        AnsiConsole.MarkupLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+
     private static void Main(string[] args)
     {
-        var library = new Library
-        {
-            Books =
-            [
-                ..StarterBooks.Select(title => new Book
-                {
-                    Title = title,
-                })
-            ]
-        };
-
         while (true)
         {
             Console.Clear();
@@ -33,33 +73,13 @@ internal static class Program
             switch (option)
             {
                 case Menu.MenuOption.ViewBooks:
-                    AnsiConsole.MarkupLine("[yellow]List of books:[/]");
-                    foreach (var book in library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title}[/]");
-
+                    ViewBooks();
                     break;
                 case Menu.MenuOption.AddBook:
-                    var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book:");
-                    var wasBookAdded = library.AddBook(new Book { Title = title });
-                    AnsiConsole.MarkupLine(wasBookAdded
-                        ? "[green]Book added successfully![/]"
-                        : "[red]Book already exists![/]");
-
+                    AddBook();
                     break;
                 case Menu.MenuOption.DeleteBook:
-                    if (library.Books.Count == 0) AnsiConsole.MarkupLine("[red]There are no books in the library.[/]");
-                    else
-                    {
-                        var bookToDelete =
-                            AnsiConsole.Prompt(new SelectionPrompt<string>()
-                                .Title("Select a [red]book[/] to delete:")
-                                .AddChoices(library.GetAllBookTitles())
-                            );
-                        var wasBookRemoved = library.RemoveBook(bookToDelete);
-                        AnsiConsole.MarkupLine(wasBookRemoved
-                            ? "[green]Book removed successfully![/]"
-                            : "[red]Book not found![/]");
-                    }
-
+                    DeleteBook();
                     break;
                 default:
                     throw new ArgumentException("Invalid menu option!");
@@ -67,11 +87,5 @@ internal static class Program
 
             PressKeyToContinue();
         }
-    }
-
-    private static void PressKeyToContinue()
-    {
-        AnsiConsole.MarkupLine("Press any key to continue...");
-        Console.ReadKey();
     }
 }
