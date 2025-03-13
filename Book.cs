@@ -13,10 +13,7 @@ public class Book
         get => _title;
     }
 
-    private string TitleCaseBookTitle(string title)
-    {
-        return _textInfo.ToTitleCase(title.Trim().ToLower());
-    }
+    private string TitleCaseBookTitle(string title) => _textInfo.ToTitleCase(title.Trim().ToLower());
 
     public override bool Equals(object? other) => other is Book book && _title == book._title;
 
