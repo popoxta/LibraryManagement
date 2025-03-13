@@ -17,4 +17,8 @@ public class Book
     {
         return _textInfo.ToTitleCase(title.Trim().ToLower());
     }
+
+    public override bool Equals(object? other) => other is Book book && _title == book._title;
+
+    public override int GetHashCode() => _title.GetHashCode();
 }
