@@ -36,13 +36,26 @@ internal static class Program
                     AnsiConsole.MarkupLine("[yellow]List of books:[/]");
                     foreach (var book in library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title}[/]");
 
-                    AnsiConsole.MarkupLine("Press any key to continue...");
-                    Console.ReadKey();
+                    PressKeyToContinue();
                     break;
                 case "Add book":
+                    var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book:");
+                    var wasBookAdded = library.AddBook(new Book { Title = title });
+                    AnsiConsole.MarkupLine(wasBookAdded
+                        ? "[green]Book added successfully![/]"
+                        : "[red]Book already exists![/]");
+                    
+                    PressKeyToContinue();
+                    break;
                 case "Delete book":
                     break;
             }
         }
+    }
+
+    private static void PressKeyToContinue()
+    {
+        AnsiConsole.MarkupLine("Press any key to continue...");
+        Console.ReadKey();
     }
 }
