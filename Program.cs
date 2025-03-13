@@ -32,22 +32,20 @@ internal static class Program
 
             switch (option)
             {
-                case "View Books":
+                case Menu.MenuOption.ViewBooks:
                     AnsiConsole.MarkupLine("[yellow]List of books:[/]");
                     foreach (var book in library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title}[/]");
 
-                    PressKeyToContinue();
                     break;
-                case "Add book":
+                case Menu.MenuOption.AddBook:
                     var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book:");
                     var wasBookAdded = library.AddBook(new Book { Title = title });
                     AnsiConsole.MarkupLine(wasBookAdded
                         ? "[green]Book added successfully![/]"
                         : "[red]Book already exists![/]");
 
-                    PressKeyToContinue();
                     break;
-                case "Delete book":
+                case Menu.MenuOption.DeleteBook:
                     if (library.Books.Count == 0) AnsiConsole.MarkupLine("[red]There are no books in the library.[/]");
                     else
                     {
@@ -62,9 +60,12 @@ internal static class Program
                             : "[red]Book not found![/]");
                     }
 
-                    PressKeyToContinue();
                     break;
+                default:
+                    throw new ArgumentException("Invalid menu option!");
             }
+
+            PressKeyToContinue();
         }
     }
 
