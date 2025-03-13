@@ -1,10 +1,12 @@
-﻿using Spectre.Console;
+﻿using System.Diagnostics.CodeAnalysis;
+using Spectre.Console;
 
 namespace LibraryManagement;
 
-public class BooksController
+[method: SetsRequiredMembers]
+public class BooksController(Library library)
 {
-    public required Library Library { get; init; }
+    public required Library Library { get; init; } = library;
 
     public void ViewBooks()
     {

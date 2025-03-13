@@ -1,6 +1,4 @@
-﻿using Spectre.Console;
-
-namespace LibraryManagement;
+﻿namespace LibraryManagement;
 
 internal static class Program
 {
@@ -12,46 +10,17 @@ internal static class Program
         "Wuthering Heights", "Fahrenheit 451", "Catch-22", "The Hitchhiker's Guide to the Galaxy"
     ];
 
-    private static readonly Library Library = new()
-    {
-        Books =
-        [
-            ..StarterBooks.Select(title => new Book
-            {
-                Title = title,
-            })
-        ]
-    };
-
-    private static readonly BooksController BooksController = new()
-    {
-        Library = Library
-    };
-
-
-    private static void Main(string[] args)
-    {
-        while (true)
+    private static readonly Library Library = new(books:
+    [
+        ..StarterBooks.Select(title => new Book
         {
-            Console.Clear();
-            var option = Menu.GetMenuOption();
+            Title = title,
+        })
+    ]);
 
-            switch (option)
-            {
-                case Menu.MenuOption.ViewBooks:
-                    BooksController.ViewBooks();
-                    break;
-                case Menu.MenuOption.AddBook:
-                    BooksController.AddBook();
-                    break;
-                case Menu.MenuOption.DeleteBook:
-                    BooksController.DeleteBook();
-                    break;
-                default:
-                    throw new ArgumentException("Invalid menu option!");
-            }
+    private static readonly BooksController BooksController = new(library: Library);
 
-            BooksController.PressKeyToContinue();
-        }
-    }
+    private static readonly UserInterface UserInterface = new(booksController: BooksController);
+
+    private static void Main(string[] args) => UserInterface.MainMenu();
 }

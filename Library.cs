@@ -1,8 +1,12 @@
-﻿namespace LibraryManagement;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public class Library
+namespace LibraryManagement;
+
+// method: tells the compiler to apply the attribute to the constructor method
+[method: SetsRequiredMembers]
+public class Library(HashSet<Book> books)
 {
-    public required HashSet<Book> Books { get; init; }
+    public required HashSet<Book> Books { get; init; } = books;
 
     public HashSet<string> GetAllBookTitles() => Books.Select(b => b.Title).ToHashSet();
 
