@@ -44,10 +44,25 @@ internal static class Program
                     AnsiConsole.MarkupLine(wasBookAdded
                         ? "[green]Book added successfully![/]"
                         : "[red]Book already exists![/]");
-                    
+
                     PressKeyToContinue();
                     break;
                 case "Delete book":
+                    if (library.Books.Count == 0) AnsiConsole.MarkupLine("[red]There are no books in the library.[/]");
+                    else
+                    {
+                        var bookToDelete =
+                            AnsiConsole.Prompt(new SelectionPrompt<string>()
+                                .Title("Select a [red]book[/] to delete:")
+                                .AddChoices(library.GetAllBookTitles())
+                            );
+                        var wasBookRemoved = library.RemoveBook(bookToDelete);
+                        AnsiConsole.MarkupLine(wasBookRemoved
+                            ? "[green]Book removed successfully![/]"
+                            : "[red]Book not found![/]");
+                    }
+
+                    PressKeyToContinue();
                     break;
             }
         }
