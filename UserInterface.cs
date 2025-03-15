@@ -1,9 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace LibraryManagement;
 
-[method: SetsRequiredMembers]
 internal class UserInterface(BooksController booksController)
 {
     private enum MenuOption
@@ -12,8 +10,6 @@ internal class UserInterface(BooksController booksController)
         AddBook,
         DeleteBook,
     }
-
-    internal required BooksController BooksController { get; init; } = booksController;
 
     private static MenuOption GetMenuOption() =>
         AnsiConsole
@@ -32,13 +28,13 @@ internal class UserInterface(BooksController booksController)
             switch (option)
             {
                 case MenuOption.ViewBooks:
-                    BooksController.ViewBooks();
+                    booksController.ViewBooks();
                     break;
                 case MenuOption.AddBook:
-                    BooksController.AddBook();
+                    booksController.AddBook();
                     break;
                 case MenuOption.DeleteBook:
-                    BooksController.DeleteBook();
+                    booksController.DeleteBook();
                     break;
                 default:
                     throw new ArgumentException("Invalid menu option!");
