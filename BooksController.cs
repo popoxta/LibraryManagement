@@ -7,13 +7,14 @@ public class BooksController(Library library)
     public void ViewBooks()
     {
         AnsiConsole.MarkupLine("[yellow]List of books:[/]");
-        foreach (var book in library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title}[/]");
+        foreach (var book in library.Books) AnsiConsole.MarkupLine($"- [cyan]{book.Title} - {book.Pages} pages[/]");
     }
 
     public void AddBook()
     {
         var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book:");
-        var wasBookAdded = library.AddBook(new Book { Title = title });
+        var pages = AnsiConsole.Ask<int>("Enter the [green]pages[/] of the book:");
+        var wasBookAdded = library.AddBook(new Book { Title = title, Pages = pages });
         AnsiConsole.MarkupLine(wasBookAdded
             ? "[green]Book added successfully![/]"
             : "[red]Book already exists![/]");

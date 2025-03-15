@@ -4,9 +4,10 @@ internal static class Program
 {
     private static readonly Library Library = new(books:
     [
-        ..MockDatabase.StarterBooks.Select(title => new Book
+        ..MockDatabase.StarterBooks.Select(book => new Book
         {
-            Title = title,
+            Title = book.Title,
+            Pages = book.Pages
         })
     ]);
 
