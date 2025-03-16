@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace LibraryManagement;
+namespace LibraryManagement.Main;
 
 public class BooksController(Library library)
 {

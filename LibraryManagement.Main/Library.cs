@@ -1,4 +1,4 @@
-﻿namespace LibraryManagement;
+﻿namespace LibraryManagement.Main;
 
 public class Library(HashSet<Book> books)
 {
