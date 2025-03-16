@@ -2,7 +2,7 @@
 
 namespace LibraryManagement.Models;
 
-public class Book : LibraryItem<Book>
+public class Book : LibraryItem
 {
     public required string Category { get; init; }
     public required string Author { get; init; }

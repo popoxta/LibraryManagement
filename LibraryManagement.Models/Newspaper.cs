@@ -2,7 +2,7 @@
 
 namespace LibraryManagement.Models;
 
-public class NewsPaper : LibraryItem<NewsPaper>
+public class NewsPaper : LibraryItem
 {
     public required string Publisher { get; init; }
     public required DateTime PublishDate { get; init; }

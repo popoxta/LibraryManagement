@@ -2,7 +2,7 @@
 
 namespace LibraryManagement.Models;
 
-public abstract class LibraryItem<T> where T : LibraryItem<T>
+public abstract class LibraryItem
 {
     private readonly TextInfo _textInfo = new CultureInfo("en-US", false).TextInfo;
 
@@ -22,7 +22,7 @@ public abstract class LibraryItem<T> where T : LibraryItem<T>
 
     private string TitleCaseTitle(string title) => _textInfo.ToTitleCase(title.Trim().ToLower());
 
-    public override bool Equals(object? other) => other is T item && Title == item.Title;
+    public override bool Equals(object? other) => other is LibraryItem item && Title == item.Title;
 
     public override int GetHashCode() => Title.GetHashCode();
 }
