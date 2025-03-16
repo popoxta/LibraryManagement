@@ -1,4 +1,4 @@
-﻿namespace LibraryManagement;
+﻿namespace LibraryManagement.Main;
 
 internal static class MockDatabase
 {

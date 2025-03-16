@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace LibraryManagement;
+namespace LibraryManagement.Main;
 
 public class Book
 {

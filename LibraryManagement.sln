@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManagement", "LibraryManagement.csproj", "{BE34CF60-4AEC-48CE-B41D-1D4932E41267}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManagement.Main", "LibraryManagement.Main\LibraryManagement.Main.csproj", "{32CF4568-BE82-4A0E-A5B2-7029F2640783}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{BE34CF60-4AEC-48CE-B41D-1D4932E41267}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE34CF60-4AEC-48CE-B41D-1D4932E41267}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE34CF60-4AEC-48CE-B41D-1D4932E41267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32CF4568-BE82-4A0E-A5B2-7029F2640783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CF4568-BE82-4A0E-A5B2-7029F2640783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32CF4568-BE82-4A0E-A5B2-7029F2640783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32CF4568-BE82-4A0E-A5B2-7029F2640783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
