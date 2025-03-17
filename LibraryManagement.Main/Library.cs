@@ -1,12 +1,18 @@
-﻿namespace LibraryManagement.Main;
+﻿using LibraryManagement.Models;
 
-public class Library(HashSet<Book> books)
+namespace LibraryManagement.Main;
+
+public class Library(HashSet<LibraryItem> libraryItems)
 {
-    public HashSet<Book> Books { get; } = books;
+    public HashSet<LibraryItem> LibraryItems { get; } = libraryItems;
 
-    public HashSet<string> GetAllBookTitles() => Books.Select(b => b.Title).ToHashSet();
+    public HashSet<string> GetAllTitles() => LibraryItems.Select(b => b.Title).ToHashSet();
 
-    public bool AddBook(Book book) => Books.Add(book);
+    public HashSet<string> GetAllTitles<TLibraryItem>() where TLibraryItem : LibraryItem =>
+        LibraryItems.OfType<TLibraryItem>().Select(b => b.Title).ToHashSet();
 
-    public bool RemoveBook(string title) => Books.RemoveWhere(book => book.Title == title) > 0;
+    public bool AddItem(LibraryItem item) => LibraryItems.Add(item);
+
+    public bool RemoveItem<TLibraryItem>(string title) where TLibraryItem : LibraryItem =>
+        LibraryItems.RemoveWhere(item => item is TLibraryItem && item.Title == title) > 0;
 }
