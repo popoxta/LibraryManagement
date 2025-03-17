@@ -1,6 +1,4 @@
-﻿using LibraryManagement.Models;
-
-namespace LibraryManagement.Main;
+﻿namespace LibraryManagement.Models;
 
 public class Library(HashSet<LibraryItem> libraryItems)
 {
