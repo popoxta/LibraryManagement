@@ -17,6 +17,12 @@ internal class UserInterface(BooksController booksController)
                 .Title("Select an option")
                 .AddChoices(Enum.GetValues<MenuOption>()));
 
+    private static void PressKeyToContinue()
+    {
+        AnsiConsole.MarkupLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+
 
     public void MainMenu()
     {
@@ -28,19 +34,19 @@ internal class UserInterface(BooksController booksController)
             switch (option)
             {
                 case MenuOption.ViewBooks:
-                    booksController.ViewBooks();
+                    libraryController.ViewBooks();
                     break;
                 case MenuOption.AddBook:
-                    booksController.AddBook();
+                    libraryController.AddBook();
                     break;
                 case MenuOption.DeleteBook:
-                    booksController.DeleteBook();
+                    libraryController.DeleteBook();
                     break;
                 default:
                     throw new ArgumentException("Invalid menu option!");
             }
 
-            BooksController.PressKeyToContinue();
+            PressKeyToContinue();
         }
     }
 }
