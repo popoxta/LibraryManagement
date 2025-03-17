@@ -3,9 +3,9 @@ using Spectre.Console;
 
 namespace LibraryManagement.Controllers;
 
-public class NewspaperController(Library library) : IBaseController
+public class NewspaperController(LibraryController libraryController) : IBaseController
 {
-    public Library Library { get; } = library;
+    public LibraryController LibraryController { get; } = libraryController;
 
     public void ViewItems()
     {
@@ -21,7 +21,7 @@ public class NewspaperController(Library library) : IBaseController
         table.AddColumn("[yellow]Location[/]");
 
         AnsiConsole.MarkupLine("[yellow]List of newspapers:[/]");
-        foreach (var newspaper in Library.LibraryItems.OfType<Newspaper>())
+        foreach (var newspaper in LibraryController.LibraryItems.OfType<Newspaper>())
             table.AddRow(
                 newspaper.Id.ToString(),
                 $"[cyan]{newspaper.Title}[/]",
@@ -41,7 +41,7 @@ public class NewspaperController(Library library) : IBaseController
         var location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the newspaper:");
         var pages = AnsiConsole.Ask<int>("Enter the [green]page count[/] of the newspaper:");
 
-        var wasNewspaperAdded = Library.AddItem(new Newspaper
+        var wasNewspaperAdded = LibraryController.AddItem(new Newspaper
         {
             Title = title,
             Publisher = publisher,
@@ -57,7 +57,7 @@ public class NewspaperController(Library library) : IBaseController
 
     public void DeleteItem()
     {
-        var newspaper = Library.LibraryItems.OfType<Newspaper>();
+        var newspaper = LibraryController.LibraryItems.OfType<Newspaper>();
         if (newspaper.ToArray().Length == 0)
         {
             AnsiConsole.MarkupLine("[red]There are no newspaper in the library.[/]");
@@ -67,9 +67,9 @@ public class NewspaperController(Library library) : IBaseController
         var newspaperToDelete =
             AnsiConsole.Prompt(new SelectionPrompt<string>()
                 .Title("Select a [red]newspaper[/] to delete:")
-                .AddChoices(Library.GetAllTitles<Newspaper>())
+                .AddChoices(LibraryController.GetAllTitles<Newspaper>())
             );
-        var wasNewspaperRemoved = Library.RemoveItem<Newspaper>(newspaperToDelete);
+        var wasNewspaperRemoved = LibraryController.RemoveItem<Newspaper>(newspaperToDelete);
         AnsiConsole.MarkupLine(wasNewspaperRemoved
             ? "[green]Newspaper removed successfully![/]"
             : "[red]Newspaper not found![/]");

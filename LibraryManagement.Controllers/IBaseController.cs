@@ -4,7 +4,7 @@ namespace LibraryManagement.Controllers;
 
 internal interface IBaseController
 {
-    protected Library Library { get; }
+    protected LibraryController LibraryController { get; }
     void ViewItems();
     void AddItem();
     void DeleteItem();

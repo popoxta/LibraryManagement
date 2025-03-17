@@ -3,9 +3,9 @@ using Spectre.Console;
 
 namespace LibraryManagement.Controllers;
 
-public class MagazineController(Library library) : IBaseController
+public class MagazineController(LibraryController libraryController) : IBaseController
 {
-    public Library Library { get; } = library;
+    public LibraryController LibraryController { get; } = libraryController;
 
     public void ViewItems()
     {
@@ -22,7 +22,7 @@ public class MagazineController(Library library) : IBaseController
         table.AddColumn("[yellow]Location[/]");
 
         AnsiConsole.MarkupLine("[yellow]List of magazines:[/]");
-        foreach (var magazine in Library.LibraryItems.OfType<Magazine>())
+        foreach (var magazine in LibraryController.LibraryItems.OfType<Magazine>())
             table.AddRow(
                 magazine.Id.ToString(),
                 $"[cyan]{magazine.Title}[/]",
@@ -44,7 +44,7 @@ public class MagazineController(Library library) : IBaseController
         var issueNumber = AnsiConsole.Ask<int>("Enter the [green]issue number[/] of the magazine:");
         var pages = AnsiConsole.Ask<int>("Enter the [green]page count[/] of the magazine:");
 
-        var wasMagazineAdded = Library.AddItem(new Magazine
+        var wasMagazineAdded = LibraryController.AddItem(new Magazine
         {
             Title = title,
             Publisher = publisher,
@@ -61,7 +61,7 @@ public class MagazineController(Library library) : IBaseController
 
     public void DeleteItem()
     {
-        var magazines = Library.LibraryItems.OfType<Magazine>();
+        var magazines = LibraryController.LibraryItems.OfType<Magazine>();
         if (magazines.ToArray().Length == 0)
         {
             AnsiConsole.MarkupLine("[red]There are no magazines in the library.[/]");
@@ -71,9 +71,9 @@ public class MagazineController(Library library) : IBaseController
         var magazineToDelete =
             AnsiConsole.Prompt(new SelectionPrompt<string>()
                 .Title("Select a [red]magazine[/] to delete:")
-                .AddChoices(Library.GetAllTitles<Magazine>())
+                .AddChoices(LibraryController.GetAllTitles<Magazine>())
             );
-        var wasMagazineRemoved = Library.RemoveItem<Magazine>(magazineToDelete);
+        var wasMagazineRemoved = LibraryController.RemoveItem<Magazine>(magazineToDelete);
         AnsiConsole.MarkupLine(wasMagazineRemoved
             ? "[green]Magazine removed successfully![/]"
             : "[red]Magazine not found![/]");

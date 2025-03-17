@@ -1,6 +1,8 @@
-﻿namespace LibraryManagement.Models;
+﻿using LibraryManagement.Models;
 
-public class Library(HashSet<LibraryItem> libraryItems)
+namespace LibraryManagement.Controllers;
+
+public class LibraryController(HashSet<LibraryItem> libraryItems)
 {
     public HashSet<LibraryItem> LibraryItems { get; } = libraryItems;
 
