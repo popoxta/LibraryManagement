@@ -22,7 +22,8 @@ public abstract class LibraryItem
 
     private string TitleCaseTitle(string title) => _textInfo.ToTitleCase(title.Trim().ToLower());
 
-    public override bool Equals(object? other) => other is LibraryItem item && Title == item.Title;
+    public override bool Equals(object? other) =>
+        other is LibraryItem item && other.GetType() == GetType() && Title == item.Title;
 
-    public override int GetHashCode() => Title.GetHashCode();
+    public override int GetHashCode() => GetType().GetHashCode() ^ Title.GetHashCode();
 }
