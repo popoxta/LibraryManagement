@@ -21,7 +21,7 @@ public class BooksController(LibraryController libraryController) : BaseControll
         table.AddColumn("[yellow]Location[/]");
         table.AddColumn("[yellow]Pages[/]");
 
-        AnsiConsole.MarkupLine("[yellow]List of books:[/]");
+        DisplayMessage("List of books");
         foreach (var book in LibraryController.LibraryItems.OfType<Book>())
             table.AddRow(
                 book.Id.ToString(),
@@ -53,9 +53,8 @@ public class BooksController(LibraryController libraryController) : BaseControll
             Location = location
         });
 
-        AnsiConsole.MarkupLine(wasBookAdded
-            ? "[green]Book added successfully![/]"
-            : "[red]Book already exists![/]");
+        if (wasBookAdded) DisplayMessage("Book added successfully!", ConsoleColor.Green);
+        else DisplayMessage("Book already exists!", ConsoleColor.Red);
     }
 
     public void DeleteItem()
@@ -63,7 +62,7 @@ public class BooksController(LibraryController libraryController) : BaseControll
         var books = LibraryController.LibraryItems.OfType<Book>();
         if (books.ToArray().Length == 0)
         {
-            AnsiConsole.MarkupLine("[red]There are no books in the library.[/]");
+            DisplayMessage("There are no books in the library.", ConsoleColor.Red);
             return;
         }
 
@@ -73,8 +72,7 @@ public class BooksController(LibraryController libraryController) : BaseControll
                 .AddChoices(LibraryController.GetAllTitles<Book>())
             );
         var wasBookRemoved = LibraryController.RemoveItem<Book>(bookToDelete);
-        AnsiConsole.MarkupLine(wasBookRemoved
-            ? "[green]Book removed successfully![/]"
-            : "[red]Book not found![/]");
+        if (wasBookRemoved) DisplayMessage("Book removed successfully!", ConsoleColor.Green);
+        else DisplayMessage("Book could not be removed!", ConsoleColor.Red);
     }
 }

@@ -20,7 +20,7 @@ public class NewspaperController(LibraryController libraryController) : BaseCont
         table.AddColumn("[yellow]Publish Date[/]");
         table.AddColumn("[yellow]Location[/]");
 
-        AnsiConsole.MarkupLine("[yellow]List of newspapers:[/]");
+        DisplayMessage("List of newspapers:");
         foreach (var newspaper in LibraryController.LibraryItems.OfType<Newspaper>())
             table.AddRow(
                 newspaper.Id.ToString(),
@@ -50,9 +50,8 @@ public class NewspaperController(LibraryController libraryController) : BaseCont
             Location = location
         });
 
-        AnsiConsole.MarkupLine(wasNewspaperAdded
-            ? "[green]Newspaper added successfully![/]"
-            : "[red]Newspaper already exists![/]");
+        if (wasNewspaperAdded) DisplayMessage("Newspaper added successfully!", ConsoleColor.Green);
+        else DisplayMessage("Newspaper could not be added!", ConsoleColor.Red);
     }
 
     public void DeleteItem()
@@ -60,7 +59,7 @@ public class NewspaperController(LibraryController libraryController) : BaseCont
         var newspaper = LibraryController.LibraryItems.OfType<Newspaper>();
         if (newspaper.ToArray().Length == 0)
         {
-            AnsiConsole.MarkupLine("[red]There are no newspaper in the library.[/]");
+            DisplayMessage("There are no newspapers in the library!", ConsoleColor.Red);
             return;
         }
 
@@ -70,8 +69,8 @@ public class NewspaperController(LibraryController libraryController) : BaseCont
                 .AddChoices(LibraryController.GetAllTitles<Newspaper>())
             );
         var wasNewspaperRemoved = LibraryController.RemoveItem<Newspaper>(newspaperToDelete);
-        AnsiConsole.MarkupLine(wasNewspaperRemoved
-            ? "[green]Newspaper removed successfully![/]"
-            : "[red]Newspaper not found![/]");
+
+        if (wasNewspaperRemoved) DisplayMessage("Newspaper removed successfully!", ConsoleColor.Green);
+        else DisplayMessage("Newspaper could not be removed!", ConsoleColor.Red);
     }
 }

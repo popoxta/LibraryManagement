@@ -21,7 +21,7 @@ public class MagazineController(LibraryController libraryController) : BaseContr
         table.AddColumn("[yellow]Issue Number[/]");
         table.AddColumn("[yellow]Location[/]");
 
-        AnsiConsole.MarkupLine("[yellow]List of magazines:[/]");
+        DisplayMessage("List of magazines:");
         foreach (var magazine in LibraryController.LibraryItems.OfType<Magazine>())
             table.AddRow(
                 magazine.Id.ToString(),
@@ -54,9 +54,8 @@ public class MagazineController(LibraryController libraryController) : BaseContr
             Location = location
         });
 
-        AnsiConsole.MarkupLine(wasMagazineAdded
-            ? "[green]Magazine added successfully![/]"
-            : "[red]Magazine already exists![/]");
+        if (wasMagazineAdded) DisplayMessage("Magazine added successfully!", ConsoleColor.Green);
+        else DisplayMessage("Magazine already exists!", ConsoleColor.Red);
     }
 
     public void DeleteItem()
@@ -64,7 +63,7 @@ public class MagazineController(LibraryController libraryController) : BaseContr
         var magazines = LibraryController.LibraryItems.OfType<Magazine>();
         if (magazines.ToArray().Length == 0)
         {
-            AnsiConsole.MarkupLine("[red]There are no magazines in the library.[/]");
+            DisplayMessage("There are no magazines in the library!!", ConsoleColor.Red);
             return;
         }
 
@@ -74,8 +73,8 @@ public class MagazineController(LibraryController libraryController) : BaseContr
                 .AddChoices(LibraryController.GetAllTitles<Magazine>())
             );
         var wasMagazineRemoved = LibraryController.RemoveItem<Magazine>(magazineToDelete);
-        AnsiConsole.MarkupLine(wasMagazineRemoved
-            ? "[green]Magazine removed successfully![/]"
-            : "[red]Magazine not found![/]");
+
+        if (wasMagazineRemoved) DisplayMessage("Magazine removed successfully!", ConsoleColor.Green);
+        else DisplayMessage("Magazine could not be removed!", ConsoleColor.Red);
     }
 }
