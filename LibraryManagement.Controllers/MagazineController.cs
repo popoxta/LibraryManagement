@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace LibraryManagement.Controllers;
 
-public class MagazineController(LibraryController libraryController) : IBaseController
+public class MagazineController(LibraryController libraryController) : BaseController, IBaseController
 {
     public LibraryController LibraryController { get; } = libraryController;
 
