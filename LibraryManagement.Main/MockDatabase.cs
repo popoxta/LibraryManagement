@@ -4,7 +4,7 @@ namespace LibraryManagement.Main;
 
 internal static class MockDatabase
 {
-    internal static readonly List<LibraryItem> StarterBooks =
+    internal static readonly List<LibraryItem> LibraryItems =
     [
         new Book
         {

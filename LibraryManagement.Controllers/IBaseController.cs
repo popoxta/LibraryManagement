@@ -1,8 +1,6 @@
-﻿using LibraryManagement.Models;
+﻿namespace LibraryManagement.Controllers;
 
-namespace LibraryManagement.Controllers;
-
-internal interface IBaseController
+public interface IBaseController
 {
     protected LibraryController LibraryController { get; }
     void ViewItems();
