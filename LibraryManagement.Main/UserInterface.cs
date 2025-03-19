@@ -11,6 +11,7 @@ internal class UserInterface(LibraryController libraryController)
         ViewItems,
         AddItem,
         DeleteItem,
+        Exit
     }
 
     private enum ItemType
@@ -77,6 +78,10 @@ internal class UserInterface(LibraryController libraryController)
                     _controllers[itemType].DeleteItem();
                     break;
                 }
+
+                case MenuOption.Exit:
+                    Console.WriteLine("Goodbye.");
+                    return;
 
                 default:
                     throw new ArgumentException("Invalid menu option!");
