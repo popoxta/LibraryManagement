@@ -51,7 +51,7 @@ public class NewspaperController(LibraryController libraryController) : BaseCont
     public void DeleteItem()
     {
         var newspaper = LibraryController.LibraryItems.OfType<Newspaper>();
-        if (newspaper.ToArray().Length == 0)
+        if (!newspaper.Any())
         {
             DisplayMessage("There are no newspapers in the library!", ConsoleColor.Red);
             return;
