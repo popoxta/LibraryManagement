@@ -37,21 +37,14 @@ public class MagazineController(LibraryController libraryController) : BaseContr
 
     public void AddItem()
     {
-        var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the magazine to add:");
-        var publisher = AnsiConsole.Ask<string>("Enter the [green]publisher[/] of the magazine:");
-        var publishDate = AnsiConsole.Ask<DateTime>("Enter the [green]publish date[/] of the magazine (yyyy-mm-dd):");
-        var location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the magazine:");
-        var issueNumber = AnsiConsole.Ask<int>("Enter the [green]issue number[/] of the magazine:");
-        var pages = AnsiConsole.Ask<int>("Enter the [green]page count[/] of the magazine:");
-
         var wasMagazineAdded = LibraryController.AddItem(new Magazine
         {
-            Title = title,
-            Publisher = publisher,
-            PublishDate = publishDate,
-            IssueNumber = issueNumber,
-            Pages = pages,
-            Location = location
+            Title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the magazine to add:"),
+            Publisher = AnsiConsole.Ask<string>("Enter the [green]publisher[/] of the magazine:"),
+            PublishDate = AnsiConsole.Ask<DateTime>("Enter the [green]publish date[/] of the magazine (yyyy-mm-dd):"),
+            IssueNumber = AnsiConsole.Ask<int>("Enter the [green]issue number[/] of the magazine:"),
+            Pages = AnsiConsole.Ask<int>("Enter the [green]page count[/] of the magazine:"),
+            Location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the magazine:")
         });
 
         if (wasMagazineAdded) DisplayMessage("Magazine added successfully!", ConsoleColor.Green);

@@ -37,20 +37,13 @@ public class BooksController(LibraryController libraryController) : BaseControll
 
     public void AddItem()
     {
-        var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book to add:");
-        var author = AnsiConsole.Ask<string>("Enter the [green]author[/] of the book:");
-        var category = AnsiConsole.Ask<string>("Enter the [green]category[/] of the book:");
-        var location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the book:");
-        var pages = AnsiConsole.Ask<int>("Enter the [green]number of pages[/] in the book:");
-
-
         var wasBookAdded = LibraryController.AddItem(new Book
         {
-            Title = title,
-            Pages = pages,
-            Category = category,
-            Author = author,
-            Location = location
+            Title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the book to add:"),
+            Pages = AnsiConsole.Ask<int>("Enter the [green]number of pages[/] in the book:"),
+            Category = AnsiConsole.Ask<string>("Enter the [green]category[/] of the book:"),
+            Author = AnsiConsole.Ask<string>("Enter the [green]author[/] of the book:"),
+            Location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the book:")
         });
 
         if (wasBookAdded) DisplayMessage("Book added successfully!", ConsoleColor.Green);

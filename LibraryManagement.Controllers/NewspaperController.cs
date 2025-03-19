@@ -35,19 +35,13 @@ public class NewspaperController(LibraryController libraryController) : BaseCont
 
     public void AddItem()
     {
-        var title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the newspaper to add:");
-        var publisher = AnsiConsole.Ask<string>("Enter the [green]publisher[/] of the newspaper:");
-        var publishDate = AnsiConsole.Ask<DateTime>("Enter the [green]publish date[/] of the newspaper (yyyy-MM-dd):");
-        var location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the newspaper:");
-        var pages = AnsiConsole.Ask<int>("Enter the [green]page count[/] of the newspaper:");
-
         var wasNewspaperAdded = LibraryController.AddItem(new Newspaper
         {
-            Title = title,
-            Publisher = publisher,
-            PublishDate = publishDate,
-            Pages = pages,
-            Location = location
+            Title = AnsiConsole.Ask<string>("Enter the [green]title[/] of the newspaper to add:"),
+            Publisher = AnsiConsole.Ask<string>("Enter the [green]publisher[/] of the newspaper:"),
+            PublishDate = AnsiConsole.Ask<DateTime>("Enter the [green]publish date[/] of the newspaper (yyyy-MM-dd):"),
+            Pages = AnsiConsole.Ask<int>("Enter the [green]page count[/] of the newspaper:"),
+            Location = AnsiConsole.Ask<string>("Enter the [green]location[/] of the newspaper:")
         });
 
         if (wasNewspaperAdded) DisplayMessage("Newspaper added successfully!", ConsoleColor.Green);
